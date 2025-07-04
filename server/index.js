@@ -29,15 +29,16 @@ app.post("/api/quote", upload.single("file"), async (req, res) => {
   const data = req.body;
   const file = req.file;
 
-  const mailOptions = {
-    from: '"Quote Form" <manoj@mecrox.in>',
-    to: "manoj@mecrox.in",
-    subject: "New Quote Request",
-    text: JSON.stringify(data, null, 2),
-    attachments: file
-      ? [{ filename: file.originalname, content: file.buffer }]
-      : [],
-  };
+const mailOptions = {
+  from: `"Quote Form" <${process.env.GMAIL_USER}>`,
+  to: process.env.GMAIL_USER,
+  subject: "New Quote Request",
+  text: JSON.stringify(data, null, 2),
+  attachments: file
+    ? [{ filename: file.originalname, content: file.buffer }]
+    : [],
+};
+
 
   try {
     await transporter.sendMail(mailOptions);
