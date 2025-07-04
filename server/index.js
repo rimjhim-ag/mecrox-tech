@@ -23,7 +23,9 @@ const transporter = nodemailer.createTransport({
     pass: "GMAIL_PASS", // Gmail App Password
   },
 });
-
+app.get("/", (req, res) => {
+  res.send(" Mecrox Backend is Live and Ready!");
+});
 //  Quote Form API
 app.post("/api/quote", upload.single("file"), async (req, res) => {
   const data = req.body;
